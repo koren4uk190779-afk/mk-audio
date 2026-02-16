@@ -165,7 +165,8 @@
 
   async function init() {
     elStatus.textContent = "Завантаження…";
-    const res = await fetch("index.json", { cache: "no-store" });
+    const res = await fetch("./index.json", { cache: "no-store" });
+
     items = await res.json();
 
     renderList("");
@@ -219,4 +220,5 @@
 </script>
 </body>
 </html>
+
 
