@@ -106,7 +106,7 @@
     elNowTitle.textContent = item.title;
     elNowMeta.textContent = `Файл: ${item.file}`;
 
-    elAudio.src = `item.file;
+    elAudio.src = item.file;
     elAudio.playbackRate = Number(elSpeed.value);
 
     elAudio.onloadedmetadata = () => {
@@ -216,6 +216,7 @@
 </script>
 </body>
 </html>
+
 
 
 
