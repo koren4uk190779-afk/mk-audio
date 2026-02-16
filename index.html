@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0b0b0b" />
 
-  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="manifest" href="./manifest.webmanifest" />
 
   <!-- iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
 
   <title>Митний кодекс — аудіо</title>
 
@@ -106,7 +106,7 @@
     elNowTitle.textContent = item.title;
     elNowMeta.textContent = `Файл: ${item.file}`;
 
-    elAudio.src = `/audio/${encodeURIComponent(item.file)}`;
+    elAudio.src = `item.file;
     elAudio.playbackRate = Number(elSpeed.value);
 
     elAudio.onloadedmetadata = () => {
@@ -216,6 +216,7 @@
 </script>
 </body>
 </html>
+
 
 
 
