@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0b0b" />
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+  <!-- iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+  <title>Митний кодекс — аудіо</title>
+
+  <style>
+    :root { color-scheme: dark; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; background:#0b0b0b; color:#eaeaea; }
+    header { padding:14px; position: sticky; top: 0; background: rgba(11,11,11,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid #1d1d1d; }
+    h1 { margin:0 0 10px; font-size:18px; font-weight:700; }
+    .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    button, select, input { background:#141414; color:#eaeaea; border:1px solid #2a2a2a; border-radius:10px; padding:10px 12px; font-size:14px; }
+    button.primary { background:#1d2a1d; border-color:#2b3b2b; }
+    button:disabled { opacity:0.6; }
+    main { padding:12px 14px 120px; }
+    .list { display:flex; flex-direction:column; gap:10px; }
+    .item { display:flex; justify-content:space-between; align-items:center; padding:12px; border:1px solid #222; border-radius:14px; background:#101010; }
+    .t { font-size:15px; font-weight:600; }
+    .s { font-size:12px; opacity:0.7; margin-top:2px; }
+    .player { position: fixed; left:0; right:0; bottom:0; padding:12px 14px calc(12px + env(safe-area-inset-bottom)); background: rgba(10,10,10,0.95); border-top:1px solid #1d1d1d; }
+    .now { display:flex; justify-content:space-between; gap:10px; margin-bottom:8px; align-items:center; }
+    audio { width:100%; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Митний кодекс — аудіо</h1>
+    <div class="row">
+      <button id="btnResume" class="primary" disabled>Продовжити</button>
+
+      <label>Швидкість:
+        <select id="speed">
+          <option value="1">1.0</option>
+          <option value="1.25">1.25</option>
+          <option value="1.5">1.5</option>
+          <option value="1.75">1.75</option>
+          <option value="2">2.0</option>
+        </select>
+      </label>
+
+      <input id="search" placeholder="Пошук (напр. XII)" />
+    </div>
+  </header>
+
+  <main>
+    <div id="status" style="opacity:0.75; font-size:13px; margin:8px 0 12px;"></div>
+    <div id="list" class="list"></div>
+  </main>
+
+  <div class="player">
+    <div class="now">
+      <div>
+        <div id="nowTitle" class="t">Не вибрано</div>
+        <div id="nowMeta" class="s">Вибери розділ зі списку</div>
+      </div>
+      <button id="btnTop">Вгору</button>
+    </div>
+    <audio id="audio" controls playsinline preload="metadata"></audio>
+  </div>
+
+<script>
+  // Service Worker
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => navigator.serviceWorker.register("/service-worker.js"));
+  }
+
+  const LS_KEY = "mk_audio_state_v1";
+
+  const elList = document.getElementById("list");
+  const elStatus = document.getElementById("status");
+  const elAudio = document.getElementById("audio");
+  const elNowTitle = document.getElementById("nowTitle");
+  const elNowMeta = document.getElementById("nowMeta");
+  const elResume = document.getElementById("btnResume");
+  const elSpeed = document.getElementById("speed");
+  const elSearch = document.getElementById("search");
+
+  let items = [];
+  let current = null;
+  let saveTimer = null;
+
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(LS_KEY) || "null"); }
+    catch { return null; }
+  }
+  function saveState(state) {
+    localStorage.setItem(LS_KEY, JSON.stringify(state));
+  }
+  function formatTime(sec) {
+    if (!isFinite(sec)) return "0:00";
+    sec = Math.max(0, Math.floor(sec));
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m}:${String(s).padStart(2, "0")}`;
+  }
+
+  function setCurrent(item, seekSec = 0) {
+    current = item;
+    elNowTitle.textContent = item.title;
+    elNowMeta.textContent = `Файл: ${item.file}`;
+
+    elAudio.src = `/audio/${encodeURIComponent(item.file)}`;
+    elAudio.playbackRate = Number(elSpeed.value);
+
+    elAudio.onloadedmetadata = () => {
+      if (seekSec && isFinite(seekSec)) {
+        const target = Math.min(seekSec, (elAudio.duration || seekSec));
+        elAudio.currentTime = target;
+      }
+    };
+  }
+
+  function renderList(filterText = "") {
+    const f = filterText.trim().toLowerCase();
+    elList.innerHTML = "";
+
+    const filtered = !f
+      ? items
+      : items.filter(x => x.title.toLowerCase().includes(f) || String(x.id).includes(f));
+
+    for (const it of filtered) {
+      const row = document.createElement("div");
+      row.className = "item";
+
+      const left = document.createElement("div");
+      const t = document.createElement("div");
+      t.className = "t";
+      t.textContent = it.title;
+
+      const s = document.createElement("div");
+      s.className = "s";
+      s.textContent = it.file;
+
+      left.appendChild(t);
+      left.appendChild(s);
+
+      const btn = document.createElement("button");
+      btn.textContent = "Відкрити";
+      btn.onclick = () => {
+        setCurrent(it, 0);
+        // Важливо для iOS: play по кліку (жест користувача)
+        elAudio.play().catch(() => {});
+        saveState({ id: it.id, t: 0, rate: Number(elSpeed.value) });
+        elResume.disabled = false;
+      };
+
+      row.appendChild(left);
+      row.appendChild(btn);
+      elList.appendChild(row);
+    }
+
+    elStatus.textContent = `Розділів: ${filtered.length} / ${items.length}`;
+  }
+
+  async function init() {
+    elStatus.textContent = "Завантаження…";
+    const res = await fetch("/index.json", { cache: "no-store" });
+    items = await res.json();
+
+    renderList("");
+
+    const state = loadState();
+    if (state && state.id) {
+      const found = items.find(x => x.id === state.id);
+      if (found) {
+        elResume.disabled = false;
+        if (state.rate) elSpeed.value = String(state.rate);
+        elNowTitle.textContent = found.title;
+        elNowMeta.textContent = `Готово до продовження з ${formatTime(state.t || 0)}`;
+      }
+    }
+  }
+
+  elResume.onclick = () => {
+    const state = loadState();
+    if (!state || !state.id) return;
+    const found = items.find(x => x.id === state.id);
+    if (!found) return;
+    setCurrent(found, Number(state.t || 0));
+    elAudio.play().catch(() => {});
+  };
+
+  elSpeed.onchange = () => {
+    elAudio.playbackRate = Number(elSpeed.value);
+    const st = loadState() || {};
+    st.rate = Number(elSpeed.value);
+    saveState(st);
+  };
+
+  elSearch.oninput = () => renderList(elSearch.value);
+
+  elAudio.addEventListener("timeupdate", () => {
+    if (!current) return;
+    if (saveTimer) return;
+    saveTimer = setTimeout(() => {
+      saveTimer = null;
+      saveState({ id: current.id, t: elAudio.currentTime || 0, rate: Number(elSpeed.value) });
+      elResume.disabled = false;
+    }, 1000);
+  });
+
+  document.getElementById("btnTop").onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
+  init().catch(err => {
+    elStatus.textContent = "Помилка: не завантажився index.json";
+    console.error(err);
+  });
+</script>
+</body>
+</html>
