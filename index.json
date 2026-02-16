@@ -1,26 +1,22 @@
 [
-  { "id": 1, "title": "Розділ I", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_1.m4a" },
-  { "id": 2, "title": "Розділ II", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_2.m4a" },
-  { "id": 3, "title": "Розділ III", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_3.m4a" },
-  { "id": 4, "title": "Розділ IV", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_4.m4a" },
-  { "id": 5, "title": "Розділ V", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_5.m4a" },
-  { "id": 6, "title": "Розділ VI", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_6.m4a" },
-  { "id": 7, "title": "Розділ VII", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_7.m4a" },
-  { "id": 8, "title": "Розділ VIII", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_8.m4a" },
-  { "id": 9, "title": "Розділ IX", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_9.m4a" },
-  { "id": 10, "title": "Розділ X", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_10.m4a" },
-  { "id": 11, "title": "Розділ XI", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_11.m4a" },
-  { "id": 12, "title": "Розділ XII", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_12.m4a" },
-  { "id": 13, "title": "Розділ XIII", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_13.m4a" },
-  { "id": 14, "title": "Розділ XIV", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_14.m4a" },
-  { "id": 15, "title": "Розділ XV", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_15.m4a" },
-  { "id": 16, "title": "Розділ XVI", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_16.m4a" },
-  { "id": 17, "title": "Розділ XVII", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_17.m4a" },
-  { "id": 18, "title": "Розділ XVIII", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_18.m4a" },
-  { "id": 19, "title": "Розділ XIX", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_19.m4a" },
-  { "id": 20, "title": "Розділ XX", "file": "https://raw.githubusercontent.com/koren4uk190779-afk/mk-audio/main/audio/Rozdil_20.m4a" }
+  { "id": 1, "title": "Розділ I", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_1.m4a" },
+  { "id": 2, "title": "Розділ II", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_2.m4a" },
+  { "id": 3, "title": "Розділ III", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_3.m4a" },
+  { "id": 4, "title": "Розділ IV", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_4.m4a" },
+  { "id": 5, "title": "Розділ V", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_5.m4a" },
+  { "id": 6, "title": "Розділ VI", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_6.m4a" },
+  { "id": 7, "title": "Розділ VII", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_7.m4a" },
+  { "id": 8, "title": "Розділ VIII", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_8.m4a" },
+  { "id": 9, "title": "Розділ IX", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_9.m4a" },
+  { "id": 10, "title": "Розділ X", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_10.m4a" },
+  { "id": 11, "title": "Розділ XI", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_11.m4a" },
+  { "id": 12, "title": "Розділ XII", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_12.m4a" },
+  { "id": 13, "title": "Розділ XIII", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_13.m4a" },
+  { "id": 14, "title": "Розділ XIV", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_14.m4a" },
+  { "id": 15, "title": "Розділ XV", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_15.m4a" },
+  { "id": 16, "title": "Розділ XVI", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_16.m4a" },
+  { "id": 17, "title": "Розділ XVII", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_17.m4a" },
+  { "id": 18, "title": "Розділ XVIII", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_18.m4a" },
+  { "id": 19, "title": "Розділ XIX", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_19.m4a" },
+  { "id": 20, "title": "Розділ XX", "file": "https://github.com/koren4uk190779-afk/mk-audio/releases/download/v1.0/Rozdil_20.m4a" }
 ]
-
-
-
-
